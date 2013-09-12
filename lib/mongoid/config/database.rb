@@ -140,7 +140,8 @@ module Mongoid #:nodoc:
       #
       # @since 2.0.0.rc.1
       def name
-        db_name = URI.parse(uri(self)).path.to_s.sub("/", "")
+        #rescue nil is specified to ensure replica sets can be configured through url
+        db_name = URI.parse(uri(self)).path.to_s.sub("/", "") rescue nil
         db_name.blank? ? database : db_name
       end
 
